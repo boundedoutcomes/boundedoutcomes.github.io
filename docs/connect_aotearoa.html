@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Connect Aotearoa</title>
+    <style>
+      :root {
+        --ink: #10201c;
+        --muted: #52655f;
+        --line: #d7e2dc;
+        --paper: #f7faf8;
+        --panel: #ffffff;
+        --green: #0c7a57;
+        --green-dark: #07573f;
+        --blue: #1769aa;
+        --yellow: #f1b83b;
+        --coral: #d95f45;
+        --shadow: 0 18px 48px rgba(16, 32, 28, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.45;
+      }
+
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        background:
+          linear-gradient(90deg, rgba(11, 58, 51, 0.9), rgba(11, 58, 51, 0.58)),
+          url("data:image/svg+xml,%3Csvg width='1440' height='760' viewBox='0 0 1440 760' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1440' height='760' fill='%23176A64'/%3E%3Cpath d='M0 545C118 486 205 498 317 542C446 593 549 646 694 590C821 541 878 420 1016 408C1155 396 1259 502 1440 448V760H0V545Z' fill='%230E4F47'/%3E%3Ccircle cx='1046' cy='228' r='100' fill='%23F1B83B' fill-opacity='.88'/%3E%3Cg stroke='%23FFFFFF' stroke-opacity='.34' stroke-width='3'%3E%3Cpath d='M204 306c52-71 120-106 204-106s153 35 205 106'/%3E%3Cpath d='M280 378c32-42 75-63 128-63s96 21 128 63'/%3E%3Cpath d='M357 448c13-17 30-26 51-26s38 9 51 26'/%3E%3C/g%3E%3Cg transform='translate(890 328)'%3E%3Crect x='0' y='0' width='276' height='188' rx='22' fill='%23F7FAF8'/%3E%3Crect x='28' y='30' width='86' height='128' rx='12' fill='%2310201C'/%3E%3Crect x='38' y='43' width='66' height='90' rx='5' fill='%231769AA'/%3E%3Ccircle cx='71' cy='146' r='5' fill='%23F7FAF8'/%3E%3Crect x='140' y='39' width='104' height='16' rx='8' fill='%230C7A57'/%3E%3Crect x='140' y='75' width='76' height='12' rx='6' fill='%23D7E2DC'/%3E%3Crect x='140' y='103' width='90' height='12' rx='6' fill='%23D7E2DC'/%3E%3Crect x='140' y='131' width='58' height='12' rx='6' fill='%23D95F45'/%3E%3C/g%3E%3C/svg%3E")
+            center / cover;
+      }
+
+      .nav,
+      .hero-inner,
+      .section-inner {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 2px solid rgba(255, 255, 255, 0.75);
+        border-radius: 8px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 48px;
+        align-items: end;
+        padding: 88px 0 58px;
+      }
+
+      .hero-copy {
+        max-width: 740px;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #ffe3a0;
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(2.7rem, 6.4vw, 5.7rem);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .hero-copy p {
+        max-width: 630px;
+        margin: 24px 0 0;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 1.18rem;
+      }
+
+      .demand-panel {
+        background: rgba(247, 250, 248, 0.96);
+        color: var(--ink);
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        border-radius: 8px;
+        padding: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .demand-panel h2,
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.55rem;
+        line-height: 1.1;
+      }
+
+      .metric {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: baseline;
+        margin: 20px 0 12px;
+      }
+
+      .metric strong {
+        color: var(--green);
+        font-size: 3.25rem;
+        line-height: 1;
+      }
+
+      .meter {
+        height: 12px;
+        overflow: hidden;
+        background: #dce8e2;
+        border-radius: 999px;
+      }
+
+      .meter span {
+        display: block;
+        width: 74%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--green), var(--yellow));
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+
+      .section-title p {
+        max-width: 520px;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .match-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 8px 28px rgba(16, 32, 28, 0.06);
+      }
+
+      .panel h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+      }
+
+      .pack-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin: 22px 0;
+      }
+
+      .pack-button {
+        min-height: 74px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .pack-button strong {
+        display: block;
+        font-size: 1.35rem;
+      }
+
+      .pack-button[aria-pressed="true"] {
+        color: #fff;
+        border-color: var(--green);
+        background: var(--green);
+      }
+
+      .pack-button:disabled {
+        color: #8a9994;
+        background: #eef3f0;
+        cursor: not-allowed;
+      }
+
+      .order-summary {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 16px;
+        background: #eef7f3;
+        border: 1px solid #cfe4da;
+        border-radius: 8px;
+      }
+
+      .primary,
+      .secondary {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 0;
+        border-radius: 8px;
+        padding: 0 18px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .primary {
+        color: #fff;
+        background: var(--green);
+      }
+
+      .primary:hover {
+        background: var(--green-dark);
+      }
+
+      .secondary {
+        color: var(--green-dark);
+        background: #dff0e8;
+      }
+
+      .primary:disabled {
+        background: #9db1aa;
+        cursor: not-allowed;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        color: var(--green-dark);
+        font-weight: 750;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      .steps {
+        display: grid;
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+      }
+
+      .step span {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        color: #fff;
+        background: var(--blue);
+        border-radius: 8px;
+        font-weight: 800;
+      }
+
+      .step p {
+        margin: 2px 0 0;
+        color: var(--muted);
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #cddbd5;
+        border-radius: 8px;
+        padding: 12px;
+        color: var(--ink);
+        background: #fff;
+      }
+
+      textarea {
+        min-height: 112px;
+        resize: vertical;
+      }
+
+      .guidelines {
+        background: #10201c;
+        color: #fff;
+      }
+
+      .guidelines .section-title p,
+      .guidelines .small {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .guideline-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .guideline {
+        min-height: 180px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .guideline strong {
+        display: block;
+        margin-bottom: 10px;
+        color: #ffe3a0;
+      }
+
+      .guideline p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 5;
+        max-width: 360px;
+        padding: 15px 16px;
+        color: #fff;
+        background: var(--green-dark);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        transform: translateY(130%);
+        transition: transform 180ms ease;
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 880px) {
+        .hero-inner,
+        .match-grid,
+        .guideline-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-inner {
+          padding-top: 54px;
+        }
+
+        .section-title {
+          display: grid;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .pack-grid,
+        .field-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        section {
+          padding: 52px 0;
+        }
+
+        .panel,
+        .demand-panel {
+          padding: 18px;
+        }
+
+        .order-summary {
+          display: grid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <nav class="nav" aria-label="Primary">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">CA</span>
+            <span>Connect Aotearoa</span>
+          </div>
+          <div class="nav-links">
+            <a href="#donate">Donate packs</a>
+            <a href="#demand">Agency orders</a>
+            <a href="#guidelines">Guidelines</a>
+          </div>
+        </nav>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Digital access, matched to verified need</p>
+            <h1>Connect packs for New Zealanders locked out of online life.</h1>
+            <p>
+              Donors fund practical digital inclusion bundles only when a
+              registered support agency has secured demand for people who need
+              access, connectivity, and basic digital support.
+            </p>
+          </div>
+          <aside class="demand-panel" aria-label="Secured demand">
+            <h2>Secured demand</h2>
+            <div class="metric">
+              <strong id="securedDemand">74</strong>
+              <span class="small">packs ready to fund</span>
+            </div>
+            <div class="meter" aria-hidden="true"><span id="demandMeter"></span></div>
+            <p class="small">
+              Donor orders are open because approved agency demand is currently
+              available.
+            </p>
+          </aside>
+        </div>
+      </header>
+
+      <section id="donate">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>Fund connect packs</h2>
+            <p>
+              Choose a preset quantity. Your order reserves packs against
+              approved demand and cannot exceed the demand currently secured.
+            </p>
+          </div>
+          <div class="match-grid">
+            <div class="panel">
+              <h3>Donation quantity</h3>
+              <p class="small">
+                Packs are distributed through approved New Zealand social
+                support agencies and charities.
+              </p>
+              <div class="pack-grid" id="packGrid" aria-label="Pack quantity options"></div>
+              <div class="order-summary">
+                <div>
+                  <strong id="selectedLabel">Select a quantity</strong>
+                  <div class="small" id="availabilityLabel">74 packs available to fund</div>
+                </div>
+                <button class="primary" id="donateButton" type="button" disabled>
+                  Reserve donation
+                </button>
+              </div>
+              <div class="status" id="donorStatus">
+                <span class="dot" aria-hidden="true"></span>
+                <span>Orders enabled: verified demand is available.</span>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>How matching works</h3>
+              <div class="steps">
+                <div class="step">
+                  <span>1</span>
+                  <div>
+                    <strong>Agency request</strong>
+                    <p>Registered providers request packs for a real service need.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <span>2</span>
+                  <div>
+                    <strong>Demand secured</strong>
+                    <p>Requests are checked against the distribution guidelines.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <span>3</span>
+                  <div>
+                    <strong>Donor order</strong>
+                    <p>Funding is accepted only for approved packs awaiting supply.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="demand">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>Agency demand orders</h2>
+            <p>
+              For registered New Zealand support organisations requesting packs
+              for people experiencing digital exclusion.
+            </p>
+          </div>
+          <div class="match-grid">
+            <form class="panel" id="agencyForm">
+              <div class="field-grid">
+                <label>
+                  Organisation
+                  <input name="organisation" required autocomplete="organization" />
+                </label>
+                <label>
+                  Registration number
+                  <input name="registration" required />
+                </label>
+              </div>
+              <div class="field-grid">
+                <label>
+                  Region
+                  <select name="region" required>
+                    <option value="">Select region</option>
+                    <option>Northland</option>
+                    <option>Auckland</option>
+                    <option>Waikato</option>
+                    <option>Bay of Plenty</option>
+                    <option>Gisborne</option>
+                    <option>Hawke's Bay</option>
+                    <option>Taranaki</option>
+                    <option>Manawatu-Whanganui</option>
+                    <option>Wellington</option>
+                    <option>Tasman / Nelson / Marlborough</option>
+                    <option>West Coast</option>
+                    <option>Canterbury</option>
+                    <option>Otago</option>
+                    <option>Southland</option>
+                  </select>
+                </label>
+                <label>
+                  Packs requested
+                  <input name="packs" type="number" min="1" max="500" required />
+                </label>
+              </div>
+              <label>
+                Community need
+                <textarea
+                  name="need"
+                  required
+                  placeholder="Who will receive these packs and what essential access will they support?"
+                ></textarea>
+              </label>
+              <button class="primary" type="submit">Submit for review</button>
+              <p class="small">
+                Submissions create pending demand. Packs become fundable only
+                after review and approval.
+              </p>
+            </form>
+            <aside class="panel">
+              <h3>Demand queue</h3>
+              <p class="small">
+                Approved demand opens donor ordering. Pending demand is not
+                counted until verification is complete.
+              </p>
+              <div class="steps" id="queueList">
+                <div class="step">
+                  <span>74</span>
+                  <div>
+                    <strong>Approved packs</strong>
+                    <p>Available now for donor matching.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <span id="pendingDemand">0</span>
+                  <div>
+                    <strong>Pending review</strong>
+                    <p>Submitted by agencies and awaiting approval.</p>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="guidelines" id="guidelines">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>Distribution guidelines</h2>
+            <p>
+              The website reflects the project rule: donor orders are accepted
+              only against secured agency demand.
+            </p>
+          </div>
+          <div class="guideline-grid">
+            <div class="guideline">
+              <strong>Needs-led</strong>
+              <p>Requests must be tied to real digital exclusion and essential access.</p>
+            </div>
+            <div class="guideline">
+              <strong>Registered agencies</strong>
+              <p>Demand comes from legitimate New Zealand social support providers.</p>
+            </div>
+            <div class="guideline">
+              <strong>No resale</strong>
+              <p>Recipients should not be charged for packs funded by donors.</p>
+            </div>
+            <div class="guideline">
+              <strong>Onboarding support</strong>
+              <p>Packs should be paired with practical help to get people online safely.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      const quantities = [1, 3, 5, 8, 13, 21, 50, 100];
+      let securedDemand = 74;
+      let pendingDemand = 0;
+      let selectedQuantity = 0;
+
+      const packGrid = document.querySelector("#packGrid");
+      const donateButton = document.querySelector("#donateButton");
+      const selectedLabel = document.querySelector("#selectedLabel");
+      const availabilityLabel = document.querySelector("#availabilityLabel");
+      const securedDemandLabel = document.querySelector("#securedDemand");
+      const pendingDemandLabel = document.querySelector("#pendingDemand");
+      const demandMeter = document.querySelector("#demandMeter");
+      const donorStatus = document.querySelector("#donorStatus span:last-child");
+      const toast = document.querySelector("#toast");
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        window.setTimeout(() => toast.classList.remove("is-visible"), 3400);
+      }
+
+      function renderPacks() {
+        packGrid.innerHTML = "";
+        quantities.forEach((quantity) => {
+          const button = document.createElement("button");
+          button.className = "pack-button";
+          button.type = "button";
+          button.disabled = quantity > securedDemand || securedDemand === 0;
+          button.setAttribute("aria-pressed", String(quantity === selectedQuantity));
+          button.innerHTML = `<strong>${quantity}</strong><span>packs</span>`;
+          button.addEventListener("click", () => {
+            selectedQuantity = quantity;
+            updateState();
+          });
+          packGrid.append(button);
+        });
+      }
+
+      function updateState() {
+        if (selectedQuantity > securedDemand) selectedQuantity = 0;
+        securedDemandLabel.textContent = securedDemand;
+        pendingDemandLabel.textContent = pendingDemand;
+        availabilityLabel.textContent = `${securedDemand} packs available to fund`;
+        demandMeter.style.width = `${Math.min(100, securedDemand)}%`;
+        selectedLabel.textContent = selectedQuantity
+          ? `${selectedQuantity} connect pack${selectedQuantity === 1 ? "" : "s"} selected`
+          : "Select a quantity";
+        donateButton.disabled = !selectedQuantity || securedDemand === 0;
+        donorStatus.textContent = securedDemand
+          ? "Orders enabled: verified demand is available."
+          : "Orders paused: no verified demand is currently available.";
+        renderPacks();
+      }
+
+      donateButton.addEventListener("click", () => {
+        if (!selectedQuantity || selectedQuantity > securedDemand) return;
+        securedDemand -= selectedQuantity;
+        showToast(
+          `${selectedQuantity} connect pack${selectedQuantity === 1 ? "" : "s"} reserved against secured demand.`
+        );
+        selectedQuantity = 0;
+        updateState();
+      });
+
+      document.querySelector("#agencyForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const packs = Number(data.get("packs"));
+        pendingDemand += packs;
+        event.currentTarget.reset();
+        showToast(`${packs} requested pack${packs === 1 ? "" : "s"} added to pending review.`);
+        updateState();
+      });
+
+      updateState();
+    </script>
+  </body>
+</html>
